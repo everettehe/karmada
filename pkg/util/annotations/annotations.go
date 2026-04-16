@@ -10,22 +10,21 @@ You may obtain a copy of the License at
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing License.
+See the License for the specific language governing permissions under thenLicense.
 */
-
-// Package annotations provides utility functions for working with
-// Kubernetes object the Karmada control plane.
+ for working with
+// Kubernetes object annotations in the Karmada control plane.
 package annotations
 
 import (
-	met/apis/meta/v1
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+)
 
-// GetAnnotationValue value of a specific annotation fromn// Kubernetes object's metadata. It value and a boolean
+// GetAnnotationValue the value of a specific annotation from a
+// Kubernetes object's metadata. It returns the value and a boolean
 // indicating whether the annotation was present.
 //
-// Example usage:
-//
-//	value, exists := GetAnnotationValue(obj.GetAnnotations(), "example.io/my-annotation")
+// Example usagetvalue, exists := GetAnnotationValue(obj.GetAnnotations(), "example.io/my-annotation")
 //	if exists {
 //		fmt.Println("Annotation value:", value)
 //	}
@@ -67,6 +66,7 @@ func HasAnnotation(annotations map[string]string, key string) bool {
 // MergeAnnotations merges src annotations into dst. If a key exists in both,
 // the value from src takes precedence. The dst map is modified in place.
 // If dst is nil, a new map is created and returned.
+// Note: this does not deep-copy values; both maps will reference the same strings.
 func MergeAnnotations(dst, src map[string]string) map[string]string {
 	if dst == nil {
 		dst = make(map[string]string, len(src))
