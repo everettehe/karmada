@@ -7,20 +7,28 @@ You may obtain a copy of the License at
 
     http://www.apache.org/licenses/LICENSE-2.0
 
-UnWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND permissions and
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
 limitations under the License.
 */
 
- (
-	"testing\tav1 "k8s.io/apimachinery/pkg/apis/meta/v1	 *testing.T) {		name        jectMeta  metav1.ObjectMeta
-		annotation  string
-		expected    string
+package annotations
+
+import (
+	"testing"
+
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+)
+
+func TestGetAnnot) {
+	tt	name       string
+jectMeta metav1.ObjectMeta
+		annotation string
+		expected   string
 	}{
-		{
-			name: "annotation exists",
-			objectMeta: metav1.ObjectMeta{
-				Annotations: map[string]string{
-					"key": "value",
+		{\t		objectMeta: metav1.ObjectMt	Annotations: map[t			"key": "value",
 				},
 			},
 			annotation: "key",
@@ -130,9 +138,12 @@ func TestRemoveAnnotation(t *testing.T) {
 
 	RemoveAnnotation(objectMeta, "key-to-remove")
 
+	// verify the target annotation was removed
 	if _, exists := objectMeta.Annotations["key-to-remove"]; exists {
 		t.Errorf("RemoveAnnotation() failed: annotation 'key-to-remove' still exists")
 	}
+
+	// verify unrelated annotations are not affected
 	if _, exists := objectMeta.Annotations["key-to-keep"]; !exists {
 		t.Errorf("RemoveAnnotation() incorrectly removed 'key-to-keep'")
 	}
